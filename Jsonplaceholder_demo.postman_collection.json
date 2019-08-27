@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "bf8edc2e-dc61-4617-ac7d-6fa5b0d57929",
+		"name": "Jsonplaceholder demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11f690a6-258c-49a7-9884-0e8ef23a094f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"const postsSchema = {\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"userId\",\"id\",\"title\",\"body\"],\"properties\":{\"userId\":{\"type\":\"number\"},\"id\":{\"type\":\"number\"},\"title\":{\"type\":\"string\"},\"body\":{\"type\":\"string\"}}}};",
+							"",
+							"var schemaResult = tv4.validateMultiple(jsonData, postsSchema);",
+							" if (schemaResult.valid){",
+							"    pm.test(\"Posts JSON is valid by scheme\"), setTestStatus;",
+							"",
+							"} else {",
+							"    for (var i = 0; i < schemaResult.errors.length; i++) {",
+							"        pm.test('Posts JSON is INVALID: ' + schemaResult.errors[i].dataPath +\" - \" + schemaResult.errors[i].message, setTestStatus);",
+							"    }",
+							"}",
+							"",
+							"function setTestStatus() {",
+							"    pm.expect(schemaResult.valid).to.be.true;",
+							"}",
+							"",
+							"var postsId = [];",
+							"for (i = 0; i < jsonData.length; i++) {",
+							"    postsId.push(jsonData[i].id);",
+							"    }",
+							"    ",
+							"pm.environment.set(\"postsId\", postsId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/posts",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfd4405f-f9eb-4b4b-8598-aaf6be2eeb37",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"const commentsSchema = {\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"postId\",\"id\",\"name\",\"email\",\"body\"],\"properties\":{\"postId\":{\"type\":\"number\"},\"id\":{\"type\":\"number\"},\"name\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"body\":{\"type\":\"string\"}}}};",
+							"",
+							"var schemaResult = tv4.validateMultiple(jsonData, commentsSchema);",
+							" if (schemaResult.valid){",
+							"    pm.test(\"Comments JSON is valid by scheme\"), setTestStatus;",
+							"",
+							"} else {",
+							"    for (var i = 0; i < schemaResult.errors.length; i++) {",
+							"        pm.test('Comments JSON is INVALID: ' + schemaResult.errors[i].dataPath +\" - \" + schemaResult.errors[i].message, setTestStatus);",
+							"    }",
+							"}",
+							"",
+							"function setTestStatus() {",
+							"    pm.expect(schemaResult.valid).to.be.true;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/comments",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/albums",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cbad4c8a-4c13-4479-bae6-24a9918aafb4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"const albumsSchema = {\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"userId\",\"id\",\"title\"],\"properties\":{\"userId\":{\"type\":\"number\"},\"id\":{\"type\":\"number\"},\"title\":{\"type\":\"string\"}}}};",
+							"",
+							"var schemaResult = tv4.validateMultiple(jsonData, albumsSchema);",
+							" if (schemaResult.valid){",
+							"    pm.test(\"Albums JSON is valid by scheme\"), setTestStatus;",
+							"",
+							"} else {",
+							"    for (var i = 0; i < schemaResult.errors.length; i++) {",
+							"        pm.test('Albums JSON is INVALID: ' + schemaResult.errors[i].dataPath +\" - \" + schemaResult.errors[i].message, setTestStatus);",
+							"    }",
+							"}",
+							"",
+							"function setTestStatus() {",
+							"    pm.expect(schemaResult.valid).to.be.true;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/albums",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"albums"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/photos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "592d5eed-3e2c-4b85-9708-f3e381fad02b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"const photosSchema = ",
+							"{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"albumId\",\"id\",\"title\",\"url\",\"thumbnailUrl\"],\"properties\":{\"albumId\":{\"type\":\"number\"},\"id\":{\"type\":\"number\"},\"title\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"},\"thumbnailUrl\":{\"type\":\"string\"}}}};",
+							"",
+							"var schemaResult = tv4.validateMultiple(jsonData, photosSchema);",
+							" if (schemaResult.valid){",
+							"    pm.test(\"Photos JSON is valid by scheme\"), setTestStatus;",
+							"",
+							"} else {",
+							"    for (var i = 0; i < schemaResult.errors.length; i++) {",
+							"        pm.test('Photos JSON is INVALID: ' + schemaResult.errors[i].dataPath +\" - \" + schemaResult.errors[i].message, setTestStatus);",
+							"    }",
+							"}",
+							"",
+							"function setTestStatus() {",
+							"    pm.expect(schemaResult.valid).to.be.true;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/photos",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/todos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "98ae14d7-be81-492e-ab88-45497ffcf2fe",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"const todosSchema = {\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"userId\",\"id\",\"title\",\"completed\"],\"properties\":{\"userId\":{\"type\":\"number\"},\"id\":{\"type\":\"number\"},\"title\":{\"type\":\"string\"},\"completed\":{\"type\":\"boolean\"}}}};",
+							"",
+							"var schemaResult = tv4.validateMultiple(jsonData, todosSchema);",
+							" if (schemaResult.valid){",
+							"    pm.test(\"Todos JSON is valid by scheme\"), setTestStatus;",
+							"",
+							"} else {",
+							"    for (var i = 0; i < schemaResult.errors.length; i++) {",
+							"        pm.test('Todos JSON is INVALID: ' + schemaResult.errors[i].dataPath +\" - \" + schemaResult.errors[i].message, setTestStatus);",
+							"    }",
+							"}",
+							"",
+							"function setTestStatus() {",
+							"    pm.expect(schemaResult.valid).to.be.true;",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/todos",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "469280ee-840f-450e-a719-ad547a374084",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"const usersSchema = {\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"id\",\"name\",\"username\",\"company\"],\"properties\":{\"id\":{\"type\":\"number\"},\"name\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"address\":{\"type\":\"object\",\"required\":[\"street\",\"suite\",\"city\",\"zipcode\",\"geo\"],\"properties\":{\"street\":{\"type\":\"string\"},\"suite\":{\"type\":\"string\"},\"city\":{\"type\":\"string\"},\"zipcode\":{\"type\":\"string\"},\"geo\":{\"type\":\"object\",\"required\":[\"lat\",\"lng\"],\"properties\":{\"lat\":{\"type\":\"string\"},\"lng\":{\"type\":\"string\"}}}}},\"phone\":{\"type\":\"string\"},\"website\":{\"type\":\"string\"},\"company\":{\"type\":\"object\",\"required\":[\"name\",\"catchPhrase\",\"bs\"],\"properties\":{\"name\":{\"type\":\"string\"},\"catchPhrase\":{\"type\":\"string\"},\"bs\":{\"type\":\"string\"}}}}}};",
+							"",
+							"var schemaResult = tv4.validateMultiple(jsonData, usersSchema);",
+							" if (schemaResult.valid){",
+							"    pm.test(\"Todos JSON is valid by scheme\"), setTestStatus;",
+							"",
+							"} else {",
+							"    for (var i = 0; i < schemaResult.errors.length; i++) {",
+							"        pm.test('Todos JSON is INVALID: ' + schemaResult.errors[i].dataPath +\" - \" + schemaResult.errors[i].message, setTestStatus);",
+							"    }",
+							"}",
+							"",
+							"function setTestStatus() {",
+							"    pm.expect(schemaResult.valid).to.be.true;",
+							"}",
+							"",
+							"var usersId = [];",
+							"for (i = 0; i < jsonData.length; i++) {",
+							"    usersId.push(jsonData[i].id);",
+							"    }",
+							"    ",
+							"pm.environment.set(\"usersId\", usersId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/users",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /posts",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4e84fcf8-3fba-4fc6-957c-b87b7beeba1a",
+						"exec": [
+							"var moment = require('moment');",
+							"pm.environment.set(\"today\", moment().format('\"YYYY-MM-DD\"'));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0190f0f-9b67-4326-9c2d-e7c396bdc183",
+						"exec": [
+							"pm.test(\"Status code is 201 Created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Post id is correct\", function(){",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"});",
+							"",
+							"var jsonRequest = JSON.parse(pm.request.body.raw);",
+							"pm.test(\"Post is correctly created with sent fields\", function(){//check if API returns the values sent by user",
+							"    pm.expect(jsonData.userId).to.eql(jsonRequest.userId);",
+							"    pm.expect(jsonData.title).to.eql(jsonRequest.title);",
+							"    pm.expect(jsonData.body).to.eql(jsonRequest.body);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 1,\n    \"title\": {{today}},\n    \"body\": \"Hello darkness, my old friend\\nI've come to talk with you again\\nBecause a vision softly creeping\\nLeft its seeds while I was sleeping\\nAnd the vision that was planted in my brain\\nStill remains\\nWithin the sound of silence\\nIn restless dreams I walked alone\\nNarrow streets of cobblestone\\n'Neath the halo of a street lamp\\nI turned my collar to the cold and damp\\nWhen my eyes were stabbed by the flash of a neon light\\nThat split the night\\nAnd touched the sound of silence\\nAnd in the naked light I saw\\nTen thousand people, maybe more\\nPeople talking without speaking\\nPeople hearing without listening\\nPeople writing songs that voices never share\\nAnd no one dared\\nDisturb the sound of silence\\n\\\"Fools, \\\" said I, \\\"You do not know\\nSilence, like a cancer, grows\\nHear my words that I might teach you\\nTake my arms that I might reach you\\\"\\nBut my words, like silent raindrops fell\\nAnd echoed in the wells, of silence\\nAnd the people bowed and prayed\\nTo the neon god they made\\nAnd the sign flashed out its warning\\nIn the words that it was forming\\nAnd the sign said, \\\"The words of the prophets are written on the subway walls\\nAnd tenement halls\\\"\\nAnd whispered in the sounds of silence\"\n  }"
+				},
+				"url": {
+					"raw": "{{HOST}}/posts",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /posts/{{randomPostId}}",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5e2564aa-10ce-401a-af69-62cc0f3f88af",
+						"exec": [
+							"function randomChoice(arr) {",
+							"    return arr[Math.floor(arr.length * Math.random())];",
+							"}",
+							"var postsId = pm.environment.get(\"postsId\");",
+							"pm.environment.set(\"randomPostId\", randomChoice(postsId));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "181b1a3c-a719-49f6-a020-1e47265de688",
+						"exec": [
+							"var postId = pm.environment.get(\"randomPostId\");",
+							"pm.test(\"Post №\" + postId + \" is deleted\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/posts/{{randomPostId}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"posts",
+						"{{randomPostId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/posts?userId={{randomUserId}}",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "370b9c08-3ac4-4742-93aa-9dda5361ac23",
+						"exec": [
+							"function randomChoice(arr) {",
+							"    return arr[Math.floor(arr.length * Math.random())];",
+							"}",
+							"var usersId = pm.environment.get(\"usersId\");",
+							"pm.environment.set(\"randomUserId\", randomChoice(usersId));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bd452c06-6318-453d-9fe3-921591390037",
+						"exec": [
+							"var userId = pm.environment.get(\"randomUserId\");",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Status code is 200\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"for (var i = 0; i < jsonData.length; i++) {",
+							"        if (jsonData[i].userId === userId){",
+							"    }",
+							"        else {",
+							"            pm.test('Posts contains not only requested user id: ' + jsonData[i].userId +\", should be  \" + userId, function(){",
+							"                pm.expect(jsonData[i].userId).to.eql(userId);",
+							"            });",
+							"        }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/posts?userId={{randomUserId}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{randomUserId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4fddc605-dd4c-4269-9a22-b2c20efd5aed",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "93b67237-4fe2-4bad-b0f6-8a83e754e2ab",
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"pm.test(\"Response time is less than 40 sec: \" + pm.response.responseTime/1000, () => {",
+					"    pm.expect(pm.response.responseTime).to.be.below(40000);",
+					"});",
+					"pm.test(\"Response is json\", function () {",
+					"    pm.response.to.be.json;",
+					"});"
+				]
+			}
+		}
+	]
+}
